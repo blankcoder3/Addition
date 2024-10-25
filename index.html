@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Addition</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+    * {
+        font-family: "Libre Baskerville", serif;
+    }
+
+    /* CSS for styling the page with a dark theme */
+    body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light text */
+    }
+
+    .quiz-container {
+    background: #1e1e1e; /* Slightly lighter dark background for the container */
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5); /* Darker shadow */
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    }
+
+    h1 {
+    font-size: 1.5rem;
+    color: #ffffff; /* White for the heading */
+    margin-bottom: 10px;
+    }
+
+    #question {
+    font-size: 1.2rem;
+    margin: 20px 0;
+    }
+
+    input[type="number"] {
+    padding: 10px;
+    font-size: 1rem;
+    width: 60%;
+    margin-right: 10px;
+    border: 1px solid #555; /* Dark border for input */
+    border-radius: 5px;
+    background-color: #2b2b2b; /* Darker input background */
+    color: #e0e0e0; /* Light text in the input */
+    }
+
+    button {
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: none;
+    color: white;
+    background-color: #007bff; /* Bright blue button */
+    border-radius: 5px;
+    cursor: pointer;
+    }
+
+    button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    }
+
+    #feedback {
+    font-size: 1rem;
+    margin-top: 20px;
+    color: #bbbbbb; /* Light gray for feedback text */
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="quiz-container">
+  <h1>Math Quiz</h1>
+  <div id="question"></div>
+  <input type="number" id="answerInput" placeholder="Your answer" />
+  <button onclick="checkAnswer()">Submit</button>
+  <div id="feedback"></div>
+</div>
+
+<script>
+  // JavaScript for quiz functionality
+  let num1, num2, correctAnswer;
+
+  // Function to generate a new question
+  function generateQuestion() {
+    num1 = Math.floor(Math.random() * 1000) + 1;
+    num2 = Math.floor(Math.random() * 1000) + 1;
+    correctAnswer = num1 + num2;
+    document.getElementById('question').textContent = `What is ${num1} + ${num2}?`;
+    document.getElementById('answerInput').value = '';
+    document.getElementById('feedback').textContent = '';
+  }
+
+  // Function to check the user's answer
+  function checkAnswer() {
+    const userAnswer = parseInt(document.getElementById('answerInput').value);
+    if (userAnswer === correctAnswer) {
+      document.getElementById('feedback').textContent = 'Correct! Well done!';
+      setTimeout(generateQuestion, 1000); // Generate new question after 1 second
+    } else {
+      document.getElementById('feedback').textContent = `Incorrect. The correct answer was ${correctAnswer}. Try another question.`;
+      setTimeout(generateQuestion, 2000); // Show the correct answer briefly, then generate a new question
+    }
+  }
+
+  // Allow Enter key to submit the answer
+  document.getElementById('answerInput').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+      checkAnswer();
+    }
+  });
+
+  // Generate the first question when the page loads
+  generateQuestion();
+</script>
+
+</body>
+</html>
